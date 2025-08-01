@@ -3,7 +3,10 @@ const path = require('path');
 const fs = require('fs');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
+
+// Middleware to parse JSON requests
+app.use(express.json());
 
 // GET API to return all JSON files from src/data
 app.get('/api/knowledgedata', (req, res) => {
@@ -35,6 +38,49 @@ app.get('/api/knowledgedata', (req, res) => {
   });
 });
 
+// POST API to add a new question to question_2.json
+app.post('/api/questions', (req, res) => {
+  console.log('API request received to add new question');
+  const { title, answer } = req.body;
+  
+  if (!title || !answer) {
+    return res.status(400).json({ error: 'Title and answer are required' });
+  }
+
+  const filePath = path.join(__dirname, 'src', 'data', 'question_2.json');
+  
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    let questions = [];
+    
+    if (!err && data) {
+      try {
+        questions = JSON.parse(data);
+      } catch (parseErr) {
+        console.error('Error parsing existing questions:', parseErr);
+      }
+    }
+    
+    // Find the highest ID and increment it
+    const maxId = questions.length > 0 ? Math.max(...questions.map(q => q.id)) : 10;
+    const newQuestion = {
+      id: maxId + 1,
+      title: title,
+      answer: answer
+    };
+    
+    questions.push(newQuestion);
+    
+    fs.writeFile(filePath, JSON.stringify(questions, null, 2), (writeErr) => {
+      if (writeErr) {
+        console.error('Error writing to file:', writeErr);
+        return res.status(500).json({ error: 'Failed to save question' });
+      }
+      
+      res.status(201).json(newQuestion);
+    });
+  });
+});
+
 // Serve static React build files
 app.use(express.static(path.join(__dirname, 'build')));
 
@@ -45,8 +91,4 @@ app.get('*', (req, res) => {
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on http://0.0.0.0:${PORT}`);
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
 });

@@ -19,10 +19,41 @@
   font-weight: 600;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   letter-spacing: 1px;
+  text-decoration: none;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar-link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .navbar-user .user-icon {
   font-size: 1.8rem;
   color: #fff;
   filter: drop-shadow(0 0 1px #fff); /* optional: helps on dark backgrounds */
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 16px;
+  }
+  
+  .navbar-link {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
 }
