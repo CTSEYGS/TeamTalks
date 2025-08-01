@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "title": "What is Canvas?",
+    "answer": "Canvas is a web application that allows EY auditors to manage and document their audit work in a structured and efficient manner."
+  },
+  {
+    "id": 2,
+    "title": "How many developers are working on Canvas?",
+    "answer": "As of now, there are 210 developers working on Canvas."
+  },
+  {
+    "id": 3,
+    "title": "What is Hercules?",
+    "answer": "Hercules is a web.api project name which serves the middle layer for main canvas application."
+  },
+    {
+        "id": 4,
+        "title": "What is azure resource group for UAT3 norway?",
+        "answer": "to be updated"
+    },
+    {
+        "id": 5,
+        "title": "What is the main focus of the Hercules project?",
+        "answer": "The main focus of the Hercules project is to provide a robust and efficient API layer that supports the functionality of the Canvas application."
+    }
+
+  
+]

@@ -1,0 +1,110 @@
+body, .home-container, .center-content, .logo, .search-form, .search-input, .search-btn, .search-results, .search-result {
+    font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+}
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-y: hidden;
+}
+
+body {
+    min-height: 100vh;
+}
+
+.home-container {
+    min-height: calc(100vh - 56px);
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+}
+
+.center-content {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: #336699;
+    margin-bottom: 24px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    letter-spacing: 1px;
+    opacity: 0.92;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 700px;
+    position: relative; /* Needed for absolute dropdown */
+}
+
+.search-input {
+    flex: 1;
+    padding: 16px 24px; /* slightly bigger padding for a larger field */
+    font-size: 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 24px 0 0 24px;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.search-input:focus {
+    border-color: #4285f4;
+}
+
+.search-btn {
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    border: none;
+    background: #336699;
+    color: #fff;
+    border-radius: 0 24px 24px 0;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.search-btn:hover {
+    background: #25476a;
+}
+
+.search-results {
+    position: relative;
+    top: 100%;
+    left: 0;
+    margin-top: 4px;
+    list-style: none;
+    padding: 0;
+    width: 100%;           /* Aligns with the form/input width */
+    max-width: 700px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    z-index: 10;
+}
+
+.search-result {
+    padding: 12px 20px;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s;
+}
+
+.search-result:last-child {
+    border-bottom: none;
+}
+
+.search-result:hover, .search-result:focus {
+    background: #e3f0fd;
+    outline: none;
+}
