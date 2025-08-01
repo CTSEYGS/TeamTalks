@@ -8,11 +8,6 @@ const Navbar = () => (
     <Link to="/" className="navbar-logo" aria-label="Knowledge">
       <img src={bookIcon} alt="Book Icon" style={{ height: 32, width: 32 }} />
     </Link>
-    <div className="navbar-links">
-      <Link to="/add-question" className="navbar-link">
-        Add Question
-      </Link>
-    </div>
     <div className="navbar-user">
       <span role="img" aria-label="user" className="user-icon">👤</span>
     </div>

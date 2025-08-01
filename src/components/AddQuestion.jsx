@@ -11,8 +11,8 @@ const AddQuestion = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!title.trim() || !answer.trim()) {
-      alert('Please fill in both the question and answer fields.');
+    if (!title.trim()) {
+      alert('Please fill in the question field.');
       return;
     }
 
@@ -67,14 +67,13 @@ const AddQuestion = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="answer">Answer:</label>
+            <label htmlFor="answer">Answer (Optional):</label>
             <textarea
               id="answer"
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
-              placeholder="Enter the answer here..."
+              placeholder="Enter the answer here (leave blank if you don't know the answer yet)..."
               rows="6"
-              required
               disabled={loading}
             />
           </div>

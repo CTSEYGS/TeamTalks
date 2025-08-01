@@ -45,38 +45,44 @@ body {
 .search-form {
     display: flex;
     align-items: center;
+    gap: 0;
     width: 100%;
-    max-width: 700px;
-    position: relative; /* Needed for absolute dropdown */
+    justify-content: center;
 }
 
 .search-input {
-    flex: 1;
-    padding: 16px 24px; /* slightly bigger padding for a larger field */
-    font-size: 1.2rem;
-    border: 1px solid #ddd;
+    height: 48px;
+    font-size: 1.1rem;
+    padding: 0 16px;
     border-radius: 24px 0 0 24px;
+    border: 1px solid #6d9edc;
     outline: none;
-    transition: border 0.2s;
+    flex: none;
+    width: 500px; /* Set a fixed width similar to Google */
+    max-width: 90vw;
+    box-sizing: border-box;
 }
 
 .search-input:focus {
-    border-color: #4285f4;
+    border-color: #336699;
 }
 
 .search-btn {
-    padding: 14px 28px;
+    height: 48px;
     font-size: 1.1rem;
-    border: none;
-    background: #336699;
-    color: #fff;
+    padding: 0 28px;
     border-radius: 0 24px 24px 0;
+    border: 1px solid #6d9edc;
+    background: #6d9edc;
+    color: #fff;
+    font-weight: 500;
     cursor: pointer;
     transition: background 0.2s;
+    border-left: none;
 }
 
 .search-btn:hover {
-    background: #25476a;
+    background: #336699;
 }
 
 .search-results {
@@ -107,4 +113,56 @@ body {
 .search-result:hover, .search-result:focus {
     background: #e3f0fd;
     outline: none;
+}
+
+.action-buttons-box {
+  display: flex;
+  gap: 16px;
+  margin-top: 148px;
+  padding: 24px 0;
+  border-radius: 24px;
+  justify-content: center;
+}
+
+.action-buttons-fixed {
+  position: fixed;
+  left: 50%;
+  bottom: 48px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 16px;
+  padding: 24px 32px;
+  border-radius: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  z-index: 200;
+}
+
+.contribute-btn,
+.add-question-btn {
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 24px;
+  background: #6d9edc;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.contribute-btn:hover,
+.add-question-btn:hover {
+  background: #336699;
+}
+
+.footer-tm {
+  width: 100%;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #888;
+  opacity: 0.8;
+  margin-top: 64px;
+  margin-bottom: 16px;
+  position: absolute;
+  bottom: 0;
 }
