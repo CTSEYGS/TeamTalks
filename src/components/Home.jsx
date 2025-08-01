@@ -33,7 +33,7 @@ const Home = () => {
             ref={inputRef}
             type="text"
             className="search-input"
-            placeholder="Search TeamTalks..."
+            placeholder="e.g. What is Canvas?"
             value={search}
             onChange={e => setSearch(e.target.value)}
           />
@@ -56,6 +56,13 @@ const Home = () => {
             ))}
           </ul>
         )}
+      </div>
+      <div className="action-buttons-fixed">
+        <button className="contribute-btn">I want to contribute answers</button>
+        <button className="add-question-btn" onClick={() => navigate('/add-question')}>I have question to add</button>
+      </div>
+      <div className="footer-tm">
+        &copy; 2025 TeamTalks
       </div>
     </div>
   );
