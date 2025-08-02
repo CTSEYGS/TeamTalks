@@ -5,6 +5,7 @@ import './AddQuestion.css';
 const AddQuestion = () => {
   const [title, setTitle] = useState('');
   const [answer, setAnswer] = useState('');
+  const [author, setAuthor] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -27,6 +28,7 @@ const AddQuestion = () => {
         body: JSON.stringify({
           title: title.trim(),
           answer: answer.trim(),
+          author: author.trim(),
         }),
       });
 
@@ -34,6 +36,7 @@ const AddQuestion = () => {
         // Reset form
         setTitle('');
         setAnswer('');
+        setAuthor('');
         // Redirect to home page
         navigate('/');
       } else {
@@ -74,6 +77,18 @@ const AddQuestion = () => {
               onChange={(e) => setAnswer(e.target.value)}
               placeholder="Enter the answer here (leave blank if you don't know the answer yet)..."
               rows="6"
+              disabled={loading}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="author">Your Name (Optional):</label>
+            <input
+              type="text"
+              id="author"
+              value={author}
+              onChange={(e) => setAuthor(e.target.value)}
+              placeholder="Enter your name (will be shown as contributor)..."
               disabled={loading}
             />
           </div>
