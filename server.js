@@ -41,10 +41,6 @@ app.get('/api/semantic-search', async (req, res) => {
 const { pipeline } = require('@xenova/transformers');
 const { Pinecone } = require('@pinecone-database/pinecone');
 
-// Initialize Pinecone
-const pinecone = new Pinecone();
-let pineconeIndex = null;
-let embeddingPipeline = null;
 async function initEmbeddingAndPinecone() {
   if (!embeddingPipeline) {
     embeddingPipeline = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
@@ -91,10 +87,7 @@ app.get('/api/semantic-search', async (req, res) => {
   }
 });
 
-// --- Knowledge Data API Endpoints ---
-const { pipeline } = require('@xenova/transformers');
-const { Pinecone } = require('@pinecone-database/pinecone');
-
+// --- pipeline Data API Endpoints ---
 // Initialize Pinecone
 const pinecone = new Pinecone();
 let pineconeIndex = null;
