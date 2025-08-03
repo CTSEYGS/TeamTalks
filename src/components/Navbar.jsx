@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-import bookIcon from '../assets/book.png'; // adjust path if needed
+import bookIcon from '../assets/knowledge.png'; // adjust path if needed
 
 const Navbar = () => (
   <nav className="navbar">

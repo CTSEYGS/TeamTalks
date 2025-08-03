@@ -2,28 +2,96 @@
   {
     "id": 1,
     "title": "What is Canvas?",
-    "answer": "Canvas is a web application that allows EY auditors to manage and document their audit work in a structured and efficient manner."
+    "answer": [{
+        "answerid": 1,
+        "text": "Canvas is a web application that allows EY auditors to manage and document their audit work in a structured and efficient manner.",
+        "date": "08/01/2025",
+        "user": "Dhananjay K",
+        "upvotes": 5
+      },
+      {
+        "answerid": 2,
+        "text": "Canvas serves as the central platform for audit documentation, workflow management, and collaboration among audit teams.",
+        "date": "08/01/2025",
+        "user": "Dhananjay K",
+        "upvotes": 3
+      }
+    ]
   },
   {
     "id": 2,
     "title": "How many developers are working on Canvas?",
-    "answer": "As of now, there are 210 developers working on Canvas."
+    "answer": [{
+        "answerid": 1,
+        "text": "As of now, there are 210 developers working on Canvas.",
+        "date": "08/01/2025",
+        "user": "Jose M",
+        "upvotes": 4
+      },
+      {
+        "answerid": 2,
+        "text": "The Canvas development team consists of 210 developers across multiple locations and specializations.",
+        "date": "08/01/2025",
+        "user": "Jose M",
+        "upvotes": 2
+      }
+    ]
   },
   {
     "id": 3,
     "title": "What is Hercules?",
-    "answer": "Hercules is a web.api project name which serves the middle layer for main canvas application."
+    "answer": [{
+        "answerid": 1,
+        "text": "Hercules is a web.api project name which serves the middle layer for main canvas application.",
+        "date": "08/01/2025",
+        "user": "Dhananjay K",
+        "upvotes": 6
+      },
+      {
+        "answerid": 2,
+        "text": "Hercules acts as the API gateway and middleware that handles communication between Canvas frontend and backend services.",
+        "date": "08/01/2025",
+        "user": "Dhananjay K",
+        "upvotes": 3
+      },
+      {
+        "answerid": 3,
+        "text": "It provides data processing, authentication, and business logic layer for the Canvas ecosystem.",
+        "date": "08/01/2025",
+        "user": "Dhananjay K",
+        "upvotes": 2
+      }
+    ]
   },
-    {
-        "id": 4,
-        "title": "What is azure resource group for UAT3 norway?",
-        "answer": "to be updated"
-    },
-    {
-        "id": 5,
-        "title": "What is the main focus of the Hercules project?",
-        "answer": "The main focus of the Hercules project is to provide a robust and efficient API layer that supports the functionality of the Canvas application."
-    }
-
-  
+  {
+    "id": 4,
+    "title": "What is azure resource group for UAT3 norway?",
+    "answer": [{
+        "answerid": 1,
+        "text": "to be updated",
+        "date": "08/01/2025",
+        "user": "Jaya",
+        "upvotes": 0
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "What is the main focus of the Hercules project?",
+    "answer": [{
+        "answerid": 1,
+        "text": "The main focus of the Hercules project is to provide a robust and efficient API layer that supports the functionality of the Canvas application.",
+        "date": "08/01/2025",
+        "user": "Sravan",
+        "upvotes": 4
+      },
+      {
+        "answerid": 2,
+        "text": "Hercules focuses on scalability, performance optimization, and maintaining secure communication channels for Canvas operations.",
+        "date": "08/01/2025",
+        "user": "Jaya",
+        "upvotes": 3
+      }
+    ]
+  }
 ]

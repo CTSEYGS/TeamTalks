@@ -95,7 +95,7 @@ app.get('/api/knowledgedata', (req, res) => {
 // POST API to add a new question to a new unique JSON file
 app.post('/api/questions', (req, res) => {
   console.log('API request received to add new question');
-  const { title, answer } = req.body;
+  const { title, answer, author } = req.body;
   
   if (!title || title.trim() === '') {
     return res.status(400).json({ error: 'Title is required' });
@@ -157,10 +157,24 @@ app.post('/api/questions', (req, res) => {
     }
 
     function createNewQuestionFile() {
+      const currentDate = new Date().toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      });
+
       const newQuestion = {
         id: maxId + 1,
         title: title.trim(),
-        answer: answer && answer.trim() ? answer.trim() : "No answer provided yet. Feel free to contribute an answer!"
+        createdDate: currentDate,
+        answer: answer && answer.trim() ? 
+          [{
+            text: answer.trim(),
+            user: author && author.trim() ? author.trim() : 'Anonymous',
+            date: currentDate,
+            upvotes: 0
+          }] : 
+          "No answer provided yet. Feel free to contribute an answer!"
       };
 
       const newFileContent = [newQuestion];

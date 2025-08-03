@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import './Question.css';
+import Answer from './Answer';
 
 const Question = () => {
   const location = useLocation();
@@ -33,20 +34,12 @@ const Question = () => {
         <div className="question-title">{question.title}</div>
         <div className="answers-section">
           {answers.map((ans, idx) => (
-            <div key={idx} className="answer-box">
-              <div
-                className="answer-text"
-                dangerouslySetInnerHTML={{ __html: ans.text || ans }}
-              />
-              <div className="answer-meta">
-                <span className="answer-user">{ans.user || 'Anonymous'}</span>
-                <span className="answer-date">{ans.date || ''}</span>
-              </div>
-              <div className="answer-upvote">
-                <button onClick={() => handleUpvote(idx)} className="upvote-btn">▲ Upvote</button>
-                <span className="upvote-count">{upvotes[idx]}</span>
-              </div>
-            </div>
+            <Answer
+              key={idx}
+              answer={ans}
+              upvotes={upvotes[idx]}
+              onUpvote={() => handleUpvote(idx)}
+            />
           ))}
         </div>
         <Link to="/" className="back-btn">Back to Search</Link>
