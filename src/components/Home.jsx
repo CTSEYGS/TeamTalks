@@ -11,18 +11,23 @@ const Home = () => {
 
   useEffect(() => {
     inputRef.current && inputRef.current.focus();
-    fetch('/api/knowledgedata')
+  }, []);
+
+  useEffect(() => {
+    if (!search) {
+      setQuestions([]);
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+    fetch(`/api/semantic-search?query=${encodeURIComponent(search)}`)
       .then(res => res.json())
       .then(data => {
         setQuestions(data);
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  }, []);
-
-  const filtered = questions
-    .filter(q => q.title.toLowerCase().includes(search.toLowerCase()))
-    .slice(0, 5);
+  }, [search]);
 
   return (
     <div className="home-container">
@@ -42,8 +47,8 @@ const Home = () => {
         {loading && <div>Loading...</div>}
         {search && !loading && (
           <ul className="search-results">
-            {filtered.length === 0 && <li>--No results found.</li>}
-            {filtered.map(q => (
+            {questions.length === 0 && <li>--No results found.</li>}
+            {questions.map(q => (
               <li
                 key={q.id}
                 className="search-result"
@@ -51,7 +56,7 @@ const Home = () => {
                 tabIndex={0}
                 style={{ cursor: 'pointer' }}
               >
-                {q.title}
+                {q.title || q.answer}
               </li>
             ))}
           </ul>
