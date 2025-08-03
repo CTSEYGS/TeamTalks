@@ -1,4 +1,19 @@
 require('dotenv').config();
+// Run upsert_pinecone.js before starting the server
+const { spawn } = require('child_process');
+const upsert = spawn('node', ['upsert_pinecone.js'], { stdio: 'inherit' });
+
+upsert.on('close', (code) => {
+  if (code !== 0) {
+    console.error(`upsert_pinecone.js exited with code ${code}`);
+    process.exit(code);
+  } else {
+    // Start the server after upsert completes successfully
+    startServer();
+  }
+});
+
+function startServer() {
 // --- Semantic Search Dependencies ---
 const express = require('express');
 const path = require('path');
@@ -203,6 +218,10 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server is running on http://0.0.0.0:${PORT}`);
-});
+
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server is running on http://0.0.0.0:${PORT}`);
+  });
+}
+
+
