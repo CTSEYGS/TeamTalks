@@ -1,3 +1,4 @@
+// upsert_pinecone.js
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
@@ -38,20 +39,46 @@ async function main() {
       console.warn('Skipping question with missing or invalid id/title:', q);
       continue;
     }
-    // Ensure answer is a string
+    // Ensure answer is a string, number, boolean, or list of strings for Pinecone metadata
     let answerText = '';
-    if (typeof q.answer === 'string') {
-      answerText = q.answer;
+    let answerMeta;
+    if (typeof q.answer === 'string' || typeof q.answer === 'number' || typeof q.answer === 'boolean') {
+      answerText = String(q.answer);
+      answerMeta = q.answer;
+    } else if (Array.isArray(q.answer)) {
+      // If array of strings, keep as is, else stringify
+      if (q.answer.every(item => typeof item === 'string')) {
+        answerMeta = q.answer;
+        answerText = q.answer.join(' ');
+      } else {
+        answerMeta = JSON.stringify(q.answer);
+        answerText = answerMeta;
+      }
     } else if (q.answer && typeof q.answer === 'object') {
+      // If object, flatten to string summary for metadata
+      answerMeta = '[object]';
       answerText = JSON.stringify(q.answer);
+    } else {
+      answerMeta = '';
     }
     const text = q.title + (answerText ? (' ' + answerText) : '');
     console.log('Embedding:', { id: q.id, text });
     const output = await embeddingPipeline(text, { pooling: 'mean', normalize: true });
+    // Only include allowed metadata types
+    const safeMeta = { ...q, title: q.title, answer: answerMeta };
+    // Remove any object/array values from metadata
+    Object.keys(safeMeta).forEach(key => {
+      const v = safeMeta[key];
+      if (
+        !(typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean' || (Array.isArray(v) && v.every(i => typeof i === 'string')))
+      ) {
+        delete safeMeta[key];
+      }
+    });
     vectors.push({
       id: String(q.id),
       values: Array.from(output.data),
-      metadata: { title: q.title, answer: answerText, ...q }
+      metadata: safeMeta
     });
   }
 
@@ -62,7 +89,8 @@ async function main() {
     console.log(JSON.stringify(batch[0], null, 2)); // Show the first record in the batch
     console.log('Batch size:', batch.length);
     console.log('Batch:', batch);
-    await pineconeIndex.upsert({ records: batch });
+    console.log(Array.isArray(batch), batch.length, typeof batch[0]);
+    await pineconeIndex.upsert(batch);
     console.log(`Upserted batch ${i / batchSize + 1}`);
   }
   console.log('All vectors upserted to Pinecone!');

@@ -1,0 +1,7 @@
+[
+  {
+    "id": 26,
+    "title": "what is difference bewteen vector and embedding",
+    "answer": "A vector is a mathematical representation of an object in a multi-dimensional space, while an embedding is a specific type of vector that is learned from data and captures the semantic meaning of the object."
+  }
+]
