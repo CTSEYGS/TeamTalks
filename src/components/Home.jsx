@@ -36,7 +36,7 @@ const Home = () => {
             ref={inputRef}
             type="text"
             className="search-input"
-            placeholder="Type keywords here..."
+            placeholder="Search for questions, topics, or technologies..."
             value={search}
             onChange={e => setSearch(e.target.value)}
           />

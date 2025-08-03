@@ -2,16 +2,58 @@
   {
     "id": 11,
     "title": "what is EYK?",
-    "answer": "EYK is a EY Knowledge database that contains all audit rules required for engagement."
+    "answer": [{
+        "answerid": 1,
+        "text": "EYK is a EY Knowledge database that contains all audit rules required for engagement.",
+        "date": "07/15/2024",
+        "user": "Dhananjay K",
+        "upvotes": 2
+      },
+      {
+        "answerid": 2,
+        "text": "EYK stands for Ernst & Young Knowledge - it's a comprehensive repository of audit methodologies, procedures, and regulatory requirements.",
+        "date": "01/20/2025",
+        "user": "Jose M",
+        "upvotes": 1
+      }
+    ]
   },
   {
     "id": 12,
     "title": "Test Question",
-    "answer": "Test Answer"
+    "answer": [{
+        "answerid": 1,
+        "text": "Test Answer",
+        "date": "06/10/2024",
+        "user": "Anonymous",
+        "upvotes": 0
+      }
+    ]
   },
   {
     "id": 13,
     "title": "What is client portal?",
-    "answer": "Also known as CCP and it is used to communicate the external user with the canvas auditor. (visa versa)"
+    "answer": [{
+        "answerid": 1,
+        "text": "Also known as CCP and it is used to communicate the external user with the canvas auditor. (visa versa)",
+        "date": "03/22/2024",
+        "user": "Alex T",
+        "upvotes": 3
+      },
+      {
+        "answerid": 2,
+        "text": "The Client Communication Portal (CCP) is a secure platform that enables two-way communication between auditors and clients during the audit process.",
+        "date": "05/18/2024",
+        "user": "Jennifer M",
+        "upvotes": 1
+      },
+      {
+        "answerid": 3,
+        "text": "It allows clients to upload documents, respond to audit requests, and track the progress of their audit engagement in real-time.",
+        "date": "07/03/2024",
+        "user": "David K",
+        "upvotes": 2
+      }
+    ]
   }
 ]

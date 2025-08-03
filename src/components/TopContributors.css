@@ -1,6 +1,7 @@
 .top-contributors-container {
   position: fixed;
   top: 40%;
+  margin-top: 100px;
   right: 15px;
   transform: translateY(-50%);
   width: 300px;
@@ -9,7 +10,7 @@
   border-radius: 12px;
   border: 1px solid #dee2e6;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
+  z-index: 9999;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -34,7 +35,7 @@
   font-size: 1.5rem;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
+  z-index: 9999;
   transition: all 0.3s ease;
   animation: pulse 2s infinite, bounce 1s ease-out;
 }
@@ -108,28 +109,7 @@
 }
 
 .contributor-rank {
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-  color: #8b5e00;
-  font-weight: bold;
-  font-size: 0.8rem;
-  padding: 4px 8px;
-  border-radius: 12px;
-  min-width: 32px;
-  text-align: center;
-}
-
-.contributor-rank:first-child {
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-}
-
-.contributor-card:nth-child(2) .contributor-rank {
-  background: linear-gradient(135deg, #c0c0c0 0%, #e5e5e5 100%);
-  color: #666;
-}
-
-.contributor-card:nth-child(3) .contributor-rank {
-  background: linear-gradient(135deg, #cd7f32 0%, #daa520 100%);
-  color: #5d3a00;
+  display: none;
 }
 
 .contributor-info {

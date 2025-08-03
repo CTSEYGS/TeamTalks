@@ -113,6 +113,11 @@ body::before {
     transition: all 0.3s ease;
 }
 
+.search-input::placeholder {
+    font-size: 0.9rem;
+    color: #999;
+}
+
 .search-input:focus {
     border-color: #336699;
     box-shadow: 0 0 15px rgba(51, 102, 153, 0.3);
