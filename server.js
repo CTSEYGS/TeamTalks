@@ -1,10 +1,79 @@
 require('dotenv').config();
+// Run upsert_pinecone.js before starting the server
+const { spawn } = require('child_process');
+const upsert = spawn('node', ['upsert_pinecone.js'], { stdio: 'inherit' });
+
+upsert.on('close', (code) => {
+  if (code !== 0) {
+    console.error(`upsert_pinecone.js exited with code ${code}`);
+    process.exit(code);
+  } else {
+    // Start the server after upsert completes successfully
+    startServer();
+  }
+});
+
+function startServer() {
 // --- Semantic Search Dependencies ---
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3001;
+const { pipeline } = require('@xenova/transformers');
+const { Pinecone } = require('@pinecone-database/pinecone');
+
+// Initialize Pinecone
+const pinecone = new Pinecone();
+let pineconeIndex = null;
+let embeddingPipeline = null;
+async function initEmbeddingAndPinecone() {
+  if (!embeddingPipeline) {
+    embeddingPipeline = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+  }
+  if (!pineconeIndex) {
+    pineconeIndex = pinecone.index('teamtalks-questions');
+  }
+}
+
+async function embedText(text) {
+  await initEmbeddingAndPinecone();
+  // embeddingPipeline returns [1, N] shape, flatten to 1D array
+  const output = await embeddingPipeline(text, { pooling: 'mean', normalize: true });
+  return Array.from(output.data);
+}
+
+async function semanticSearch(query, topK = 5) {
+  await initEmbeddingAndPinecone();
+  const queryEmbedding = await embedText(query);
+  const result = await pineconeIndex.query({
+    vector: queryEmbedding,
+    topK,
+    includeMetadata: true,
+  });
+  return result.matches.map(match => ({
+    id: match.id,
+    score: match.score,
+    ...match.metadata,
+  }));
+}
+
+// --- Semantic Search API Endpoint ---
+app.get('/api/semantic-search', async (req, res) => {
+  const query = req.query.query;
+  if (!query || !query.trim()) {
+    return res.status(400).json({ error: 'Query is required' });
+  }
+  try {
+    const results = await semanticSearch(query, 5);
+    res.json(results);
+  } catch (err) {
+    console.error('Semantic search error:', err);
+    res.status(500).json({ error: 'Semantic search failed' });
+  }
+});
+
+// --- Knowledge Data API Endpoints ---
 const { pipeline } = require('@xenova/transformers');
 const { Pinecone } = require('@pinecone-database/pinecone');
 
@@ -203,6 +272,10 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server is running on http://0.0.0.0:${PORT}`);
-});
+
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server is running on http://0.0.0.0:${PORT}`);
+  });
+}
+
+
