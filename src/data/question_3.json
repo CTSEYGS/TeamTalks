@@ -1,10 +1,16 @@
 [{
     "id": 21,
-    "title": "what is Cg",
+    "title": "What is Cg",
     "answer": [{
         "text": "Cg is a <b>Content generator</b> application where content authors create auditing tasks, forms, rules etc.",
-        "date": "",
-        "user": "Anonymous",
+        "date": "09/01/2025",
+        "user": "Dhananjay K",
+        "upvotes": 0
+      },
+      {
+        "text": "It is used to create and manage the content that is used in the audit process.",
+        "date": "02/20/2024",
+        "user": "Jose M",
         "upvotes": 0
       }
     ]
