@@ -82,6 +82,13 @@
   background: rgba(255, 255, 255, 0.8);
 }
 
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  font-size: 0.85rem;
+  color: #999;
+  opacity: 0.8;
+}
+
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
