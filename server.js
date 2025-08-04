@@ -1,64 +1,10 @@
-require('dotenv').config();
-// --- Semantic Search Dependencies ---
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+
 const app = express();
 const PORT = process.env.PORT || 3001;
-const { pipeline } = require('@xenova/transformers');
-const { Pinecone } = require('@pinecone-database/pinecone');
 
-// Initialize Pinecone
-const pinecone = new Pinecone();
-let pineconeIndex = null;
-let embeddingPipeline = null;
-async function initEmbeddingAndPinecone() {
-  if (!embeddingPipeline) {
-    embeddingPipeline = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
-  }
-  if (!pineconeIndex) {
-    pineconeIndex = pinecone.index('teamtalks-questions');
-  }
-}
-
-async function embedText(text) {
-  await initEmbeddingAndPinecone();
-  // embeddingPipeline returns [1, N] shape, flatten to 1D array
-  const output = await embeddingPipeline(text, { pooling: 'mean', normalize: true });
-  return Array.from(output.data);
-}
-
-async function semanticSearch(query, topK = 5) {
-  await initEmbeddingAndPinecone();
-  const queryEmbedding = await embedText(query);
-  const result = await pineconeIndex.query({
-    vector: queryEmbedding,
-    topK,
-    includeMetadata: true,
-  });
-  return result.matches.map(match => ({
-    id: match.id,
-    score: match.score,
-    ...match.metadata,
-  }));
-}
-
-// --- Semantic Search API Endpoint ---
-app.get('/api/semantic-search', async (req, res) => {
-  const query = req.query.query;
-  if (!query || !query.trim()) {
-    return res.status(400).json({ error: 'Query is required' });
-  }
-  try {
-    const results = await semanticSearch(query, 5);
-    res.json(results);
-  } catch (err) {
-    console.error('Semantic search error:', err);
-    res.status(500).json({ error: 'Semantic search failed' });
-  }
-});
-
-// --- Knowledge Data API Endpoints ---
 // Middleware to parse JSON requests
 app.use(express.json());
 
