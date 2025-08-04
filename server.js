@@ -20,24 +20,6 @@ const path = require('path');
 const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3001;
-
-
-// --- Semantic Search API Endpoint ---
-app.get('/api/semantic-search', async (req, res) => {
-  const query = req.query.query;
-  if (!query || !query.trim()) {
-    return res.status(400).json({ error: 'Query is required' });
-  }
-  try {
-    const results = await semanticSearch(query, 5);
-    res.json(results);
-  } catch (err) {
-    console.error('Semantic search error:', err);
-    res.status(500).json({ error: 'Semantic search failed' });
-  }
-});
-
-// --- Knowledge Data API Endpoints ---
 const { pipeline } = require('@xenova/transformers');
 const { Pinecone } = require('@pinecone-database/pinecone');
 
