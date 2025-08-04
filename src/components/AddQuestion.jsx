@@ -53,7 +53,7 @@ const AddQuestion = () => {
   return (
     <div className="add-question-container">
       <div className="add-question-content">
-        <h1>Add New Question</h1>
+        <div className="add-question-title">Add New Question</div>
         
         <form onSubmit={handleSubmit} className="add-question-form">
           <div className="form-group">
