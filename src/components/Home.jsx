@@ -30,7 +30,10 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="center-content">
-        <div className="logo">Team.Talks</div>
+        <div className="logo-section">
+          <div className="logo">Team.Talks</div>
+          <div className="logo-subtitle">.. turning collaboration into knowledge base</div>
+        </div>
         <form className="search-form" onSubmit={e => e.preventDefault()}>
           <input
             ref={inputRef}

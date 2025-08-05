@@ -69,7 +69,7 @@ body::before {
     font-size: 2.5rem;
     font-weight: 500;
     color: #336699;
-    margin-bottom: 24px;
+    margin-bottom: 3px;
     font-family: 'Segoe UI', Arial, sans-serif;
     letter-spacing: 1px;
     opacity: 0.92;
@@ -300,11 +300,31 @@ body::before {
 .footer-tm {
   width: 100%;
   text-align: center;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: #888;
   opacity: 0.8;
   margin-top: 64px;
   margin-bottom: 16px;
   position: absolute;
   bottom: 0;
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.logo-subtitle {
+  font-size: 0.9rem;
+  color: rgba(51, 102, 153, 0.7);
+  margin-top: 5px;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+  .logo-subtitle {
+    font-size: 0.8rem;
+    margin-top: 6px;
+  }
 }
