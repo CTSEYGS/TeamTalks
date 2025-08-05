@@ -1,26 +1,57 @@
 .add-question-container {
-  min-height: 100vh;
+  min-height: calc(100vh - 56px);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  background-color: #f5f5f5;
-  padding: 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 20px 20px 64px 20px;
+  position: relative;
+}
+
+.add-question-container::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(51, 102, 153, 0.03) 0%, transparent 70%);
+  animation: float 20s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(30px, -30px) rotate(120deg);
+  }
+  66% {
+    transform: translate(-20px, 20px) rotate(240deg);
+  }
 }
 
 .add-question-content {
-  background: white;
-  padding: 40px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 24px 32px 32px 32px;
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 600px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(227, 230, 232, 0.5);
+  position: relative;
+  z-index: 1;
 }
 
-.add-question-content h1 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 30px;
-  font-size: 2rem;
+.add-question-title {
+ font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 24px;
+  color: #336699;
+  border-bottom: 1px solid #e3e6e8;
+  padding-bottom: 12px;
 }
 
 .add-question-form {
@@ -36,30 +67,41 @@
 }
 
 .form-group label {
-  font-weight: 600;
-  color: #333;
+  font-weight: 400;
+  color: #336699;
   font-size: 1.1rem;
 }
 
 .form-group input,
 .form-group textarea {
-  padding: 12px;
-  border: 2px solid #ddd;
-  border-radius: 8px;
+  padding: 14px 16px;
+  border: 2px solid rgba(51, 102, 153, 0.2);
+  border-radius: 10px;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  font-size: 0.85rem;
+  color: #999;
+  opacity: 0.8;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #6d9edc;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 0 4px rgba(109, 158, 220, 0.1);
 }
 
 .form-group input:disabled,
 .form-group textarea:disabled {
-  background-color: #f8f9fa;
+  background: rgba(248, 249, 250, 0.8);
   cursor: not-allowed;
+  border-color: rgba(51, 102, 153, 0.1);
 }
 
 .form-group textarea {
@@ -77,32 +119,38 @@
 
 .cancel-btn,
 .submit-btn {
-  padding: 12px 24px;
+  padding: 10px 24px;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-width: 120px;
+  min-width: 110px;
 }
 
 .cancel-btn {
-  background-color: #6c757d;
+  background: linear-gradient(135deg, #95a5a6 0%, #6c757d 100%);
   color: white;
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
 }
 
 .cancel-btn:hover:not(:disabled) {
-  background-color: #5a6268;
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(108, 117, 125, 0.4);
 }
 
 .submit-btn {
-  background-color: #007bff;
+  background: linear-gradient(135deg, #6d9edc 0%, #336699 100%);
   color: white;
+  box-shadow: 0 4px 12px rgba(51, 102, 153, 0.3);
 }
 
 .submit-btn:hover:not(:disabled) {
-  background-color: #0056b3;
+  background: linear-gradient(135deg, #336699 0%, #25476a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(51, 102, 153, 0.4);
 }
 
 .cancel-btn:disabled,
@@ -120,8 +168,8 @@
     padding: 20px;
   }
   
-  .add-question-content h1 {
-    font-size: 1.5rem;
+  .add-question-title {
+    font-size: 1.1rem;
   }
   
   .form-actions {
