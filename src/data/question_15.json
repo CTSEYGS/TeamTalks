@@ -1,12 +1,13 @@
 [
   {
     "id": 33,
-    "title": "What is Hera",
+    "title": "What is helix?",
     "createdDate": "08/05/2025",
     "answer": [
       {
-        "text": "Hera is application for assurance delivery management.",
-        "user": "Alex",
+        "answerid": 1754430407595,
+        "text": "Imports numbers",
+        "user": "Anonymous User",
         "date": "08/05/2025",
         "upvotes": 0
       }
