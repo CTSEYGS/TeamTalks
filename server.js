@@ -141,6 +141,109 @@ app.post('/api/questions', (req, res) => {
   });
 });
 
+// PUT API to update an existing question with a new answer
+app.put('/api/questions/:id', (req, res) => {
+  console.log(`API request received to update question ${req.params.id}`);
+  const questionId = parseInt(req.params.id);
+  const { answer, user, date } = req.body;
+  
+  if (!answer || answer.trim() === '') {
+    return res.status(400).json({ error: 'Answer is required' });
+  }
+
+  const dataDir = path.join(__dirname, 'src', 'data');
+  
+  // Read all JSON files to find the one containing the question
+  fs.readdir(dataDir, (err, files) => {
+    if (err) {
+      console.error('Error reading data directory:', err);
+      return res.status(500).json({ error: 'Failed to access data directory' });
+    }
+
+    const jsonFiles = files.filter(f => f.endsWith('.json'));
+    let questionFound = false;
+    let processedFiles = 0;
+
+    jsonFiles.forEach(file => {
+      const filePath = path.join(dataDir, file);
+      
+      fs.readFile(filePath, 'utf8', (readErr, data) => {
+        processedFiles++;
+        
+        if (!readErr && data && !questionFound) {
+          try {
+            const fileData = JSON.parse(data);
+            const questions = Array.isArray(fileData) ? fileData : [fileData];
+            
+            // Find the question in this file
+            const questionIndex = questions.findIndex(q => q.id === questionId);
+            
+            if (questionIndex !== -1) {
+              questionFound = true;
+              const question = questions[questionIndex];
+              
+              // Create new answer object
+              const newAnswer = {
+                answerid: Date.now(), // Simple unique ID
+                text: answer.trim(),
+                user: user || 'Anonymous User',
+                date: date || new Date().toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit'
+                }),
+                upvotes: 0
+              };
+              
+              // Update the question's answer
+              if (typeof question.answer === 'string' && 
+                  question.answer === "No answer provided yet. Feel free to contribute an answer!") {
+                // Replace placeholder with first real answer
+                question.answer = [newAnswer];
+              } else if (Array.isArray(question.answer)) {
+                // Add to existing answers
+                question.answer.push(newAnswer);
+              } else {
+                // Convert single answer to array and add new one
+                const existingAnswer = {
+                  answerid: 1,
+                  text: question.answer,
+                  user: 'Original Author',
+                  date: question.createdDate || 'Unknown',
+                  upvotes: 0
+                };
+                question.answer = [existingAnswer, newAnswer];
+              }
+              
+              // Write the updated file
+              fs.writeFile(filePath, JSON.stringify(questions, null, 2), (writeErr) => {
+                if (writeErr) {
+                  console.error('Error updating question file:', writeErr);
+                  return res.status(500).json({ error: 'Failed to update question' });
+                }
+                
+                console.log(`Question ${questionId} updated in ${file}`);
+                res.json({
+                  message: 'Question updated successfully',
+                  questionId,
+                  newAnswer
+                });
+              });
+            }
+          } catch (parseErr) {
+            console.error(`Error parsing ${file}:`, parseErr);
+          }
+        }
+        
+        // If all files processed and no question found
+        if (processedFiles === jsonFiles.length && !questionFound) {
+          res.status(404).json({ error: 'Question not found' });
+        }
+      });
+    });
+  });
+});
+
 // Serve static React build files
 app.use(express.static(path.join(__dirname, 'build')));
 
