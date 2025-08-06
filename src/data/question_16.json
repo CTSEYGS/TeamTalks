@@ -1,0 +1,15 @@
+[
+  {
+    "id": 34,
+    "title": "What is UAT?",
+    "createdDate": "08/05/2025",
+    "answer": [
+      {
+        "text": "<p>An <strong>Environment </strong>that backend changes are <span style=\"color: rgb(230, 0, 0);\">NOT</span> allowed. QA do most of their testing here.</p>",
+        "user": "Jose M",
+        "date": "08/05/2025",
+        "upvotes": 0
+      }
+    ]
+  }
+]
