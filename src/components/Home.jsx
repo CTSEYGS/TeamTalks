@@ -4,6 +4,7 @@ import './Home.css';
 import TopQuestions from './TopQuestions';
 import TopContributors from './TopContributors';
 import LatestQuestions from './LatestQuestions';
+import { searchQuestions } from '../utils/searchUtils';
 
 const Home = () => {
   const [search, setSearch] = useState('');
@@ -23,20 +24,21 @@ const Home = () => {
       .catch(() => setLoading(false));
   }, []);
 
-  const filtered = questions
-    .filter(q => q.title.toLowerCase().includes(search.toLowerCase()))
-    .slice(0, 5);
+  const filtered = searchQuestions(questions, search, 5);
 
   return (
     <div className="home-container">
       <div className="center-content">
-        <div className="logo">Team.Talks</div>
+        <div className="logo-section">
+          <div className="logo">Team.Talks</div>
+          <div className="logo-subtitle">.. turning collaboration into knowledge base</div>
+        </div>
         <form className="search-form" onSubmit={e => e.preventDefault()}>
           <input
             ref={inputRef}
             type="text"
             className="search-input"
-            placeholder="Search for questions, topics, or technologies..."
+            placeholder="Search for questions, topics, or contributors.."
             value={search}
             onChange={e => setSearch(e.target.value)}
           />

@@ -29,16 +29,17 @@ const LatestQuestions = ({ questions }) => {
       <h3 className="latest-questions-title">🆕 Latest Questions</h3>
       <div className="latest-questions-pills">
         {latestQuestions.map(question => (
-          <button
-            key={question.id}
-            className="latest-question-pill"
-            onClick={() => navigate(`/question/${question.id}`, { state: question })}
-          >
-            <span className="pill-text">{question.title}</span>
-            {question.createdDate && (
-              <span className="pill-date">{question.createdDate}</span>
-            )}
-          </button>
+          <div key={question.id} className="latest-question-item">
+            <button
+              className="latest-question-pill"
+              onClick={() => navigate(`/question/${question.id}`, { state: question })}
+              title={question.title}
+            >
+              <span className="pill-text">
+                {question.title.length > 40 ? `${question.title.substring(0, 40)}..` : question.title}
+              </span>
+            </button>
+          </div>
         ))}
       </div>
     </div>
