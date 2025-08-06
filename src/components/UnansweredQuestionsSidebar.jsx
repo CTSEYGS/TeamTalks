@@ -173,7 +173,7 @@ function UnansweredQuestionsSidebar({
           <div className="modal-backdrop" onClick={handleCloseModal}></div>
           <div className="answer-modal">
             <div className="modal-header">
-              <h3>Contribute Your Answer</h3>
+              <div className="contribute-answer-title">Contribute Your Answer</div>
               <button className="modal-close-btn" onClick={handleCloseModal}>
                 ✕
               </button>

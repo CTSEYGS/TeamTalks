@@ -119,9 +119,9 @@ body::before {
 }
 
 .search-input:focus {
-    border-color: #336699;
-    box-shadow: 0 0 15px rgba(51, 102, 153, 0.3);
-    transform: translateY(-2px);
+  outline: none;
+  border-color: #336699;
+  box-shadow: none;
 }
 
 .search-btn {

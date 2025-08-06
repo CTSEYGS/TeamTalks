@@ -1,17 +1,11 @@
-/* Main layout container for question page with sidebar */
-.question-page-layout {
-  display: flex;
-  min-height: calc(100vh - 56px);
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-}
-
 .question-container {
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  min-height: calc(100vh - 56px);
   max-height: 100vh;
   overflow-y: auto;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   padding: 32px 16px 64px 16px;
   position: relative;
 }

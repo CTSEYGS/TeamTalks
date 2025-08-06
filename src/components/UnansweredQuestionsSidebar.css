@@ -4,7 +4,7 @@
   top: 56px; /* Below navbar */
   right: 0;
   height: calc(100vh - 56px);
-  background: transparent;
+  background:transparent;
   border: none;
   box-shadow: none;
   backdrop-filter: none;
@@ -84,7 +84,7 @@
   overflow-y: auto;
   opacity: 1;
   transition: opacity 0.3s ease;
-  background: rgba(255, 255, 255, 0.98);
+   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   border-left: 1px solid rgba(227, 230, 232, 0.7);
   box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
@@ -113,8 +113,8 @@
 }
 
 .hide-sidebar-btn {
-  background: #dc3545;
-  color: white;
+  background: transparent;
+  color: black;
   border: none;
   border-radius: 50%;
   width: 28px;
@@ -128,7 +128,7 @@
 }
 
 .hide-sidebar-btn:hover {
-  background: #c82333;
+  background: #777;
   transform: scale(1.1);
 }
 
@@ -303,8 +303,8 @@
 }
 
 .modal-close-btn {
-  background: #dc3545;
-  color: white;
+  background: transparent;
+  color: #222;
   border: none;
   border-radius: 50%;
   width: 32px;
@@ -318,7 +318,7 @@
 }
 
 .modal-close-btn:hover {
-  background: #c82333;
+  background: #777;
   transform: scale(1.1);
 }
 
@@ -463,4 +463,12 @@
   .modal-submit-btn {
     width: 100%;
   }
+}
+
+.contribute-answer-title {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #336699;
+  margin: 0;
+  line-height: 1.4;
 }
