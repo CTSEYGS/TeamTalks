@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UnansweredQuestionsSidebar from './UnansweredQuestionsSidebar';
+import RichTextEditor from './RichTextEditor';
+import { isRichTextEmpty } from '../utils/richTextUtils';
 import './AddQuestion.css';
 
 const AddQuestion = () => {
@@ -29,7 +31,7 @@ const AddQuestion = () => {
         },
         body: JSON.stringify({
           title: title.trim(),
-          answer: answer.trim(),
+          answer: isRichTextEmpty(answer) ? '' : answer,
           author: author.trim(),
         }),
       });
@@ -74,13 +76,12 @@ const AddQuestion = () => {
 
             <div className="form-group">
               <label htmlFor="answer">Answer (Optional):</label>
-              <textarea
-                id="answer"
+              <RichTextEditor
                 value={answer}
-                onChange={(e) => setAnswer(e.target.value)}
+                onChange={setAnswer}
                 placeholder="Enter the answer here (leave blank if you don't know the answer yet)..."
-                rows="6"
                 disabled={loading}
+                height="200px"
               />
             </div>
 

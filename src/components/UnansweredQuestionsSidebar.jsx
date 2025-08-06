@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import RichTextEditor from './RichTextEditor';
+import { isRichTextEmpty } from '../utils/richTextUtils';
 import './UnansweredQuestionsSidebar.css';
 
 function UnansweredQuestionsSidebar({ 
@@ -75,7 +77,7 @@ function UnansweredQuestionsSidebar({
 
   const handleSubmitAnswer = async (e) => {
     e.preventDefault();
-    if (!answerText.trim() || !selectedQuestionToAnswer) return;
+    if (isRichTextEmpty(answerText) || !selectedQuestionToAnswer) return;
 
     setSubmitting(true);
     try {
@@ -187,14 +189,12 @@ function UnansweredQuestionsSidebar({
             <form onSubmit={handleSubmitAnswer} className="modal-form">
               <div className="form-group">
                 <label htmlFor="answer">Your Answer:</label>
-                <textarea
-                  id="answer"
+                <RichTextEditor
                   value={answerText}
-                  onChange={(e) => setAnswerText(e.target.value)}
+                  onChange={setAnswerText}
                   placeholder="Share your knowledge and help the community..."
-                  required
-                  rows="8"
-                  className="modal-textarea"
+                  disabled={submitting}
+                  height="250px"
                 />
               </div>
               
@@ -209,7 +209,7 @@ function UnansweredQuestionsSidebar({
                 </button>
                 <button 
                   type="submit" 
-                  disabled={submitting || !answerText.trim()}
+                  disabled={submitting || isRichTextEmpty(answerText)}
                   className="modal-submit-btn"
                 >
                   {submitting ? 'Submitting...' : 'Submit Answer'}
