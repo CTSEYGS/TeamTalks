@@ -15,7 +15,7 @@ const LatestQuestions = ({ questions }) => {
         }
         return b.id - a.id; // Fallback to ID sorting
       })
-      .slice(0, 6);
+      .slice(0, 5);
   };
 
   const latestQuestions = getLatestQuestions();

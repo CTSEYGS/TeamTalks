@@ -1,13 +1,13 @@
 [
   {
     "id": 37,
-    "title": "What is CCP in the context of our project",
-    "createdDate": "08/05/2025",
+    "title": "What db engine our project uses",
+    "createdDate": "08/06/2025",
     "answer": [
       {
-        "text": "CCP is canvas client portal application used by clients of our company to share audit related evidences etc.",
+        "text": "we use oracle for rbac app and sql for documentation",
         "user": "Dhananjay K",
-        "date": "08/05/2025",
+        "date": "08/06/2025",
         "upvotes": 0
       }
     ]

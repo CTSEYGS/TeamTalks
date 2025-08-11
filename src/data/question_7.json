@@ -2,6 +2,14 @@
   {
     "id": 25,
     "title": "How do we handle database migrations?",
-    "answer": "No answer provided yet. Feel free to contribute an answer!"
+    "answer": [
+      {
+        "answerid": 1754479991180,
+        "text": "This is done using dacpac.",
+        "user": "Anonymous User",
+        "date": "08/06/2025",
+        "upvotes": 0
+      }
+    ]
   }
 ]
