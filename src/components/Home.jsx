@@ -8,24 +8,45 @@ import LatestQuestions from './LatestQuestions';
 const Home = () => {
   const [search, setSearch] = useState('');
   const [questions, setQuestions] = useState([]);
+  const [filteredQuestions, setFilteredQuestions] = useState([]); // For search results
   const [loading, setLoading] = useState(true);
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     inputRef.current && inputRef.current.focus();
-    fetch('/api/knowledgedata')
+  }, []);
+
+  useEffect(() => {
+    if (questions.length === 0) {
+      setLoading(true);
+      fetch('/api/knowledgedata')
+        .then(res => res.json())
+        .then(data => {
+          setQuestions(data);
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
+    }
+  }, [questions]);
+
+  // Search effect
+  useEffect(() => {
+    if (!search) {
+      setQuestions([]);
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+    fetch(`/api/semantic-search?query=${encodeURIComponent(search)}`)
       .then(res => res.json())
       .then(data => {
-        setQuestions(data);
+        setFilteredQuestions(data);
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  }, []);
-
-  const filtered = questions
-    .filter(q => q.title.toLowerCase().includes(search.toLowerCase()))
-    .slice(0, 5);
+  }, [search]);
 
   return (
     <div className="home-container">
@@ -42,7 +63,7 @@ const Home = () => {
           />
           <button type="submit" className="search-btn">Search</button>
         </form>
-        
+
         {/* Top Questions Pills - shown when not searching */}
         {!search && !loading && (
           <>
@@ -50,20 +71,20 @@ const Home = () => {
             <LatestQuestions questions={questions} />
           </>
         )}
-        
+
         {/* Top Contributors - fixed positioned */}
         {!loading && (
           <TopContributors questions={questions} />
         )}
-        
+
         {loading && <div className="loading-spinner">
           <div className="spinner"></div>
           <p>Loading awesome questions...</p>
         </div>}
         {search && !loading && (
           <ul className="search-results">
-            {filtered.length === 0 && <li>--No results found.</li>}
-            {filtered.map(q => (
+            {filteredQuestions.length === 0 && <li>--No results found.</li>}
+            {filteredQuestions?.map(q => (
               <li
                 key={q.id}
                 className="search-result"
@@ -78,7 +99,7 @@ const Home = () => {
         )}
       </div>
       <div className="action-buttons-fixed">
-        
+
         <button className="add-question-btn" onClick={() => navigate('/add-question')}>I want to contribute..</button>
       </div>
       <div className="footer-tm">
