@@ -29,9 +29,9 @@ const TopQuestions = ({ questions }) => {
             title={`${question.upvotes || 0} upvotes`}
           >
             <span className="question-text">{question.title}</span>
-            {(question.upvotes || 0) > 0 && (
+            {/* {(question.upvotes || 0) > 0 && (
               <span className="upvote-badge">{question.upvotes}</span>
-            )}
+            )} */}
           </button>
         ))}
       </div>

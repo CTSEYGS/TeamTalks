@@ -54,12 +54,12 @@ const Answer = ({ answer, questionId, onUpvote }) => {
             {(answer.date && answer.date.trim()) && (
               <span className="answer-date">{answer.date}</span>
             )}
-            {answer.answerid && (
+            {/* {answer.answerid && (
               <span className="answer-id">A.ID: {answer.answerid}</span>
             )}
              {questionId && (
               <span className="answer-id">Q.ID: {questionId}</span>
-            )}
+            )} */}
           </div>
           <div className="answer-upvote">
             <button 

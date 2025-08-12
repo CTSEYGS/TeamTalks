@@ -4,12 +4,12 @@
     "title": "Test Question",
     "createdDate": "8/11/2025",
     "upvotes": 0,
-    "author": "Anonymous",
+    "author": "~",
     "answers": [
       {
         "answerid": 1,
         "text": "Test Answer",
-        "user": "Anonymous",
+        "user": "~",
         "date": "06/10/2024",
         "upvotes": 0
       }

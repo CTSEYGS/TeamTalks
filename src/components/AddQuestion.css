@@ -51,6 +51,12 @@
   z-index: 1;
 }
 
+.question-star
+{
+  color: red;
+  font-size: small;
+}
+
 .add-question-title {
  font-size: 1.5rem;
   font-weight: 400;

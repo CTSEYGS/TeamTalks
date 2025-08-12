@@ -60,7 +60,7 @@ const AddQuestion = () => {
           
           <form onSubmit={handleSubmit} className="add-question-form">
             <div className="form-group">
-              <label htmlFor="title">Question:</label>
+              <label htmlFor="title">Question<span className='question-star'>*</span></label>
               <input
                 type="text"
                 id="title"
@@ -73,7 +73,7 @@ const AddQuestion = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="answer">Answer (Optional):</label>
+              <label htmlFor="answer">Answer</label>
               <textarea
                 id="answer"
                 value={answer}
@@ -85,7 +85,7 @@ const AddQuestion = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="author">Your Name (Optional):</label>
+              <label htmlFor="author">Your Name</label>
               <input
                 type="text"
                 id="author"
