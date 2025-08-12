@@ -327,8 +327,7 @@
   padding: 0 24px 20px 24px;
   background: #f8f9fa;
   margin: 0 24px 24px 24px;
-  border-radius: 8px;
-  border-left: 4px solid #336699;
+  border-radius: 2px;
 }
 
 .modal-question h4 {

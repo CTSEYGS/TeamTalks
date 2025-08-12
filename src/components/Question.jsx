@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import './Question.css';
 import Answer from './Answer';
+import AddAnswerModal from './AddAnswerModal';
 
 const Question = () => {
   const location = useLocation();
@@ -9,6 +10,8 @@ const Question = () => {
 
   const [questionUpvotes, setQuestionUpvotes] = useState(question?.upvotes || 0);
   const [isUpvotingQuestion, setIsUpvotingQuestion] = useState(false);
+  const [isAnswerModalOpen, setIsAnswerModalOpen] = useState(false);
+  const [questionData, setQuestionData] = useState(question);
 
   if (!question) {
     return (
@@ -24,9 +27,14 @@ const Question = () => {
   }
 
   // Support multiple answers (array or single string)
-  const answers = Array.isArray(question.answers) ? question.answers : 
-                  Array.isArray(question.answer) ? question.answer :
-                  [{ text: question.answer || question.answers, user: 'Anonymous', date: '', upvotes: 0 }];
+  const answers = Array.isArray(questionData.answers) ? questionData.answers : 
+                  Array.isArray(questionData.answer) ? questionData.answer :
+                  typeof questionData.answer === 'string' && 
+                  questionData.answer !== "No answer provided yet. Feel free to contribute an answer!" ?
+                  [{ text: questionData.answer, user: 'Anonymous', date: '', upvotes: 0 }] : [];
+
+  const hasNoAnswers = answers.length === 0 || 
+    (answers.length === 1 && answers[0].text === "No answer provided yet. Feel free to contribute an answer!");
 
   // Handle question upvote
   const handleQuestionUpvote = async () => {
@@ -48,7 +56,6 @@ const Question = () => {
       });
 
       if (response.ok) {
-        const result = await response.json();
         setQuestionUpvotes(questionUpvotes + 1);
         console.log(`Question ${question.id} upvoted successfully`);
       } else {
@@ -64,20 +71,35 @@ const Question = () => {
     }
   };
 
+  // Handle answer submission
+  const handleAnswerSubmitted = async (questionId, answerText) => {
+    try {
+      // Refresh question data by fetching it again
+      const response = await fetch(`/api/questions/${questionId}`);
+      if (response.ok) {
+        const updatedQuestion = await response.json();
+        setQuestionData(updatedQuestion);
+      }
+      console.log('Answer submitted successfully');
+    } catch (error) {
+      console.error('Error refreshing question data:', error);
+    }
+  };
+
   return (
     <div className="question-container">
       <div className="question-content">
         
         {/* Question Header */}
         <div className="question-header">
-          <div className="question-title2">{question.title} </div>
+          <div className="question-title2">{questionData.title}</div>
           
           {/* Question Metadata */}
           <div className="question-meta">
             <div className="question-info">
-              <span className="question-author">By {question.author || 'Anonymous'}</span>
-              <span className="question-date">{question.createdDateDisplay || question.createdDate || 'Unknown date'}</span>
-              <span className="question-id">ID: {question.id}</span>
+              <span className="question-author">By {questionData.author || 'Anonymous'}</span>
+              <span className="question-date">{questionData.createdDateDisplay || questionData.createdDate || 'Unknown date'}</span>
+              <span className="question-id">ID: {questionData.id}</span>
             </div>
             
             {/* Question Upvote Section */}
@@ -88,16 +110,16 @@ const Question = () => {
                 disabled={isUpvotingQuestion}
                 title="Upvote this question"
               >
-                {isUpvotingQuestion ? '' : '👍'}
+                {isUpvotingQuestion ? '⏳' : '👍'}
               </button>
               <span className="question-upvote-count">{questionUpvotes}</span>
             </div>
           </div>
 
           {/* Tags Section */}
-          {question.tags && question.tags.length > 0 && (
+          {questionData.tags && questionData.tags.length > 0 && (
             <div className="question-tags">
-              {question.tags.map((tag, index) => (
+              {questionData.tags.map((tag, index) => (
                 <span key={index} className="question-tag">
                   #{tag}
                 </span>
@@ -108,23 +130,45 @@ const Question = () => {
 
         {/* Answers Section */}
         <div className="answers-section">
-           <div className='answers-title'>Answers</div> 
-       
-          {answers.length > 0 ? (
-            answers.map((ans, idx) => (
-              <Answer
-                key={ans.answerid || idx}
-                answer={ans}
-                questionId={question.id}
-                onUpvote={(answerId, newCount) => {
-                  console.log(`Answer ${answerId} now has ${newCount} upvotes`);
-                }}
-              />
-            ))
-          ) : (
+          <div className="answers-header">
+            Answers
+          </div>
+          
+          {hasNoAnswers ? (
             <div className="no-answers">
-              <p>No answers yet. Be the first to answer!</p>
+              <div className="no-answers-content">
+                <p>No answers yet. Be the first to answer!</p>
+                <button 
+                  className="add-answer-btn" 
+                  onClick={() => setIsAnswerModalOpen(true)}
+                >
+                  💡 Add Your Answer
+                </button>
+              </div>
             </div>
+          ) : (
+            <>
+              {answers.map((ans, idx) => (
+                <Answer
+                  key={ans.answerid || idx}
+                  answer={ans}
+                  questionId={questionData.id}
+                  onUpvote={(answerId, newCount) => {
+                    console.log(`Answer ${answerId} now has ${newCount} upvotes`);
+                  }}
+                />
+              ))}
+              
+              {/* Add Answer Button for existing answers */}
+              <div className="add-more-answers">
+                <button 
+                  className="add-answer-btn secondary" 
+                  onClick={() => setIsAnswerModalOpen(true)}
+                >
+                  ➕ Add Another Answer
+                </button>
+              </div>
+            </>
           )}
         </div>
 
@@ -133,6 +177,14 @@ const Question = () => {
           <Link to="/" className="back-btn">← Back to Home</Link>
         </div>
       </div>
+
+      {/* Add Answer Modal */}
+      <AddAnswerModal
+        isOpen={isAnswerModalOpen}
+        onClose={() => setIsAnswerModalOpen(false)}
+        question={questionData}
+        onAnswerSubmitted={handleAnswerSubmitted}
+      />
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './UnansweredQuestionsSidebar.css';
+import AddAnswerModal from './AddAnswerModal';
 
 function UnansweredQuestionsSidebar({ 
   isExpanded, 
@@ -8,32 +9,12 @@ function UnansweredQuestionsSidebar({
 }) {
   const [allQuestions, setAllQuestions] = useState([]);
   const [selectedQuestionToAnswer, setSelectedQuestionToAnswer] = useState(null);
-  const [answerText, setAnswerText] = useState('');
-  const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     fetchQuestions();
   }, []);
-
-  useEffect(() => {
-    const handleEscKey = (event) => {
-      if (event.key === 'Escape' && isModalOpen) {
-        handleCloseModal();
-      }
-    };
-
-    if (isModalOpen) {
-      document.addEventListener('keydown', handleEscKey);
-      document.body.style.overflow = 'hidden'; // Prevent background scroll
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscKey);
-      document.body.style.overflow = 'unset';
-    };
-  }, [isModalOpen]);
 
   const fetchQuestions = async () => {
     try {
@@ -58,7 +39,7 @@ function UnansweredQuestionsSidebar({
     if (Array.isArray(q.answers) && q.answers.length === 1) {
       return q.answers[0].text === "No answer provided yet. Feel free to contribute an answer!";
     }
-     if (Array.isArray(q.answers) && q.answers.length === 0) {
+    if (Array.isArray(q.answers) && q.answers.length === 0) {
       return true;
     }
     return false;
@@ -66,59 +47,24 @@ function UnansweredQuestionsSidebar({
 
   const handleSelectQuestion = (questionToAnswer) => {
     setSelectedQuestionToAnswer(questionToAnswer);
-    setAnswerText('');
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setSelectedQuestionToAnswer(null);
-    setAnswerText('');
     setIsModalOpen(false);
   };
 
-  const handleSubmitAnswer = async (e) => {
-    e.preventDefault();
-    if (!answerText.trim() || !selectedQuestionToAnswer) return;
-
-    setSubmitting(true);
-    try {
-      const response = await fetch(`/api/questions/${selectedQuestionToAnswer.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          answer: answerText,
-          user: 'Anonymous User',
-          date: new Date().toLocaleDateString('en-US', { 
-            month: '2-digit', 
-            day: '2-digit', 
-            year: 'numeric' 
-          })
-        })
-      });
-
-      if (response.ok) {
-        // Refresh the questions data
-        await fetchQuestions();
-        
-        // Notify parent component if callback provided
-        if (onQuestionUpdate) {
-          onQuestionUpdate();
-        }
-        
-        setSelectedQuestionToAnswer(null);
-        setAnswerText('');
-        setIsModalOpen(false);
-      } else {
-        throw new Error('Failed to submit answer');
-      }
-    } catch (err) {
-      console.error('Error submitting answer:', err);
-      alert('Failed to submit answer. Please try again.');
-    } finally {
-      setSubmitting(false);
+  const handleAnswerSubmitted = async (questionId, answerText) => {
+    // Refresh the questions data
+    await fetchQuestions();
+    
+    // Notify parent component if callback provided
+    if (onQuestionUpdate) {
+      onQuestionUpdate();
     }
+    
+    console.log(`Answer submitted for question ${questionId}`);
   };
 
   return (
@@ -169,58 +115,13 @@ function UnansweredQuestionsSidebar({
         </div>
       )}
 
-      {/* Answer Modal */}
-      {isModalOpen && selectedQuestionToAnswer && (
-        <>
-          <div className="modal-backdrop" onClick={handleCloseModal}></div>
-          <div className="answer-modal">
-            <div className="modal-header">
-              <div className="contribute-answer-title">Contribute Your Answer</div>
-              <button className="modal-close-btn" onClick={handleCloseModal}>
-                ✕
-              </button>
-            </div>
-            
-            <div className="modal-question">
-              <h4>Question:</h4>
-              <p>{selectedQuestionToAnswer.title}</p>
-            </div>
-
-            <form onSubmit={handleSubmitAnswer} className="modal-form">
-              <div className="form-group">
-                <label htmlFor="answer">Your Answer:</label>
-                <textarea
-                  id="answer"
-                  value={answerText}
-                  onChange={(e) => setAnswerText(e.target.value)}
-                  placeholder="Share your knowledge and help the community..."
-                  required
-                  rows="8"
-                  className="modal-textarea"
-                />
-              </div>
-              
-              <div className="modal-actions">
-                <button 
-                  type="button" 
-                  onClick={handleCloseModal}
-                  className="modal-cancel-btn"
-                  disabled={submitting}
-                >
-                  Cancel
-                </button>
-                <button 
-                  type="submit" 
-                  disabled={submitting || !answerText.trim()}
-                  className="modal-submit-btn"
-                >
-                  {submitting ? 'Submitting...' : 'Submit Answer'}
-                </button>
-              </div>
-            </form>
-          </div>
-        </>
-      )}
+      {/* Add Answer Modal */}
+      <AddAnswerModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        question={selectedQuestionToAnswer}
+        onAnswerSubmitted={handleAnswerSubmitted}
+      />
     </div>
   );
 }
