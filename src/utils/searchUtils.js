@@ -12,9 +12,9 @@ export const searchQuestions = (questions, searchTerm, limit = 5) => {
       }
       
       // Search in answers
-      if (q.answer) {
+      if (q.answers) {
         // Handle both array and single answer formats
-        const answers = Array.isArray(q.answer) ? q.answer : [q.answer];
+        const answers = Array.isArray(q.answers) ? q.answers : [q.answers];
         
         return answers.some(answer => {
           // Search in answer text

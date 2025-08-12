@@ -69,7 +69,7 @@ const Home = () => {
         </div>}
         {search && !loading && (
           <ul className="search-results">
-            {filtered.length === 0 && <li>--No results found.</li>}
+            {filtered.length === 0 && <li  className="search-result">--No results found.</li>}
             {filtered.map(q => (
               <li
                 key={q.id}
