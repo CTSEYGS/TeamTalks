@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1006,
+    "title": "what is EYK?",
+    "createdDate": "8/11/2025",
+    "upvotes": 10,
+    "author": "Anonymous",
+    "answers": [
+      {
+        "answerid": 1,
+        "text": "EYK is a EY Knowledge database that contains all audit rules required for engagement.",
+        "user": "Dhananjay K",
+        "date": "07/15/2024",
+        "upvotes": 2
+      },
+      {
+        "answerid": 2,
+        "text": "EYK stands for Ernst & Young Knowledge - it's a comprehensive repository of audit methodologies, procedures, and regulatory requirements.",
+        "user": "Jose M",
+        "date": "01/20/2025",
+        "upvotes": 1
+      }
+    ]
+  }
+]

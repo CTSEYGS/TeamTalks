@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1025,
+    "title": "What db engine our project uses",
+    "createdDate": "08/06/2025",
+    "upvotes": 0,
+    "author": "Anonymous",
+    "answers": [
+      {
+        "answerid": 100001,
+        "text": "we use oracle for rbac app and sql for documentation",
+        "user": "Dhananjay K",
+        "date": "08/06/2025",
+        "upvotes": 0
+      }
+    ]
+  }
+]

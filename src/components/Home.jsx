@@ -55,7 +55,12 @@ const Home = () => {
         
         {/* Top Contributors - fixed positioned */}
         {!loading && (
-          <TopContributors questions={questions} />
+          <TopContributors 
+            questions={questions} 
+            onRefresh={(contributors) => {
+              console.log('Contributors refreshed:', contributors);
+            }}
+          />
         )}
         
         {loading && <div className="loading-spinner">

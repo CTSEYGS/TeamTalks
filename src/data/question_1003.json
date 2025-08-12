@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1003,
+    "title": "What is Hercules?",
+    "createdDate": "8/11/2025",
+    "upvotes": 0,
+    "author": "Anonymous",
+    "answers": [
+      {
+        "answerid": 1,
+        "text": "Hercules is a web.api project name which serves the middle layer for main canvas application.",
+        "user": "Dhananjay K",
+        "date": "08/01/2025",
+        "upvotes": 9
+      },
+      {
+        "answerid": 2,
+        "text": "Hercules acts as the API gateway and middleware that handles communication between Canvas frontend and backend services.",
+        "user": "Dhananjay K",
+        "date": "08/01/2025",
+        "upvotes": 3
+      },
+      {
+        "answerid": 3,
+        "text": "It provides data processing, authentication, and business logic layer for the Canvas ecosystem.",
+        "user": "Dhananjay K",
+        "date": "08/01/2025",
+        "upvotes": 2
+      }
+    ]
+  }
+]

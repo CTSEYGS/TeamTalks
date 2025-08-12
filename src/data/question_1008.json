@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1008,
+    "title": "What is client portal?",
+    "createdDate": "8/11/2025",
+    "upvotes": 0,
+    "author": "Anonymous",
+    "answers": [
+      {
+        "answerid": 1,
+        "text": "Also known as CCP and it is used to communicate the external user with the canvas auditor. (visa versa)",
+        "user": "Alex T",
+        "date": "03/22/2024",
+        "upvotes": 3
+      },
+      {
+        "answerid": 2,
+        "text": "The Client Communication Portal (CCP) is a secure platform that enables two-way communication between auditors and clients during the audit process.",
+        "user": "Jennifer M",
+        "date": "05/18/2024",
+        "upvotes": 1
+      },
+      {
+        "answerid": 3,
+        "text": "It allows clients to upload documents, respond to audit requests, and track the progress of their audit engagement in real-time.",
+        "user": "David K",
+        "date": "07/03/2024",
+        "upvotes": 2
+      }
+    ]
+  }
+]

@@ -52,11 +52,14 @@ function UnansweredQuestionsSidebar({
 
   // Filter questions that need answers
   const unansweredQuestions = allQuestions.filter(q => {
-    if (typeof q.answer === 'string') {
-      return q.answer === "No answer provided yet. Feel free to contribute an answer!";
+    if (typeof q.answers === 'string') {
+      return q.answers === "No answer provided yet. Feel free to contribute an answer!";
     }
-    if (Array.isArray(q.answer) && q.answer.length === 1) {
-      return q.answer[0].text === "No answer provided yet. Feel free to contribute an answer!";
+    if (Array.isArray(q.answers) && q.answers.length === 1) {
+      return q.answers[0].text === "No answer provided yet. Feel free to contribute an answer!";
+    }
+     if (Array.isArray(q.answers) && q.answers.length === 0) {
+      return true;
     }
     return false;
   });
@@ -107,7 +110,6 @@ function UnansweredQuestionsSidebar({
         setSelectedQuestionToAnswer(null);
         setAnswerText('');
         setIsModalOpen(false);
-        alert('Answer submitted successfully!');
       } else {
         throw new Error('Failed to submit answer');
       }

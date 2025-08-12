@@ -79,7 +79,7 @@
 }
 
 .sidebar-content {
-  padding: 80px 24px 24px 24px;
+  padding: 30px 24px 24px 24px;
   height: 100%;
   overflow-y: auto;
   opacity: 1;
@@ -97,7 +97,7 @@
 }
 
 .sidebar-header {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -133,7 +133,7 @@
 }
 
 .question-count-section {
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 .question-count {
@@ -179,7 +179,8 @@
 
 .unanswered-list {
   margin-bottom: 24px;
-  max-height: calc(100vh - 300px);
+  margin-top: 10px;
+  /* max-height: calc(100vh - 300px); */
   overflow-y: auto;
 }
 

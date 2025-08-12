@@ -21,7 +21,7 @@ const Question = () => {
   }
 
   // Support multiple answers (array or single string)
-  const answers = Array.isArray(question.answer) ? question.answer : [{ text: question.answer, user: 'Anonymous', date: '', upvotes: 0 }];
+  const answers = Array.isArray(question.answers) ? question.answers : [{ text: question.answers, user: 'Anonymous', date: '', upvotes: 0 }];
   const [upvotes, setUpvotes] = useState(answers.map(a => a.upvotes || 0));
 
   const handleUpvote = idx => {
@@ -39,6 +39,7 @@ const Question = () => {
             <Answer
               key={idx}
               answer={ans}
+              questionId={question.id}
               upvotes={upvotes[idx]}
               onUpvote={() => handleUpvote(idx)}
             />

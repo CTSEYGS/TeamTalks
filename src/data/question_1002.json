@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1002,
+    "title": "How many developers are working on Canvas?",
+    "createdDate": "8/11/2025",
+    "upvotes": 0,
+    "author": "Anonymous",
+    "answers": [
+      {
+        "answerid": 1,
+        "text": "As of now, there are 210 developers working on Canvas.",
+        "user": "Jose M",
+        "date": "08/01/2025",
+        "upvotes": 14
+      },
+      {
+        "answerid": 2,
+        "text": "The Canvas development team consists of 210 developers across multiple locations and specializations.",
+        "user": "Jose M",
+        "date": "08/01/2025",
+        "upvotes": 4
+      }
+    ]
+  }
+]

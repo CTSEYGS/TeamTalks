@@ -5,8 +5,14 @@ import './TopQuestions.css';
 const TopQuestions = ({ questions }) => {
   const navigate = useNavigate();
   
-  // Get top 6 questions
-  const topQuestions = questions.slice(0, 6);
+  // Get top 6 questions based on upvotes (most voted first)
+  const getTopQuestions = () => {
+    return questions
+      .sort((a, b) => (b.upvotes || 0) - (a.upvotes || 0)) // Sort by upvotes descending
+      .slice(0, 6);
+  };
+
+  const topQuestions = getTopQuestions();
 
   if (topQuestions.length === 0) {
     return null;
@@ -20,8 +26,12 @@ const TopQuestions = ({ questions }) => {
             key={question.id}
             className="question-pill"
             onClick={() => navigate(`/question/${question.id}`, { state: question })}
+            title={`${question.upvotes || 0} upvotes`}
           >
-            {question.title}
+            <span className="question-text">{question.title}</span>
+            {(question.upvotes || 0) > 0 && (
+              <span className="upvote-badge">{question.upvotes}</span>
+            )}
           </button>
         ))}
       </div>

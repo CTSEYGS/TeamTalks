@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1016,
+    "title": "What is Universal",
+    "createdDate": "8/11/2025",
+    "upvotes": 0,
+    "author": "Anonymous",
+    "answers": [
+      {
+        "answerid": 100001,
+        "text": "<div style=\"font-family: Arial, sans-serif; font-size: 16px; color: #333; line-height: 1.6;\">\n  <p>\n    <strong style=\"color: #2c3e50;\">Application Overview:</strong><br>\n    This is a <span style=\"color: #2e86c1;\"><strong>comprehensive global application</strong></span> that facilitates centralized access to all \n    <span style=\"color: #28b463;\">datacenter-specific engagements</span>. It is built to support teams working across multiple geographic locations \n    by offering a unified interface for managing and monitoring engagement data.\n  </p>\n\n  <p>\n    <strong style=\"color: #2c3e50;\">Key Features:</strong><br>\n    Users are provided with a set of <span style=\"color: #d35400;\">intuitive navigation links</span> that allow seamless browsing of engagement details, \n    project metadata, and status summaries. The navigation is categorized and structured to minimize search effort and improve usability.\n  </p>\n\n  <p>\n    <strong style=\"color: #2c3e50;\">Global Accessibility:</strong><br>\n    The platform is optimized for global operations, enabling access from any region and ensuring that <span style=\"color: #8e44ad;\">cross-functional teams</span> \n    can collaborate effectively in real-time. It also supports multi-datacenter architecture, enhancing scalability and performance.\n  </p>\n\n  <p>\n    <strong style=\"color: #2c3e50;\">Use Cases:</strong><br>\n    Whether it’s for <span style=\"color: #2e86c1;\"><strong>project management</strong></span>, <span style=\"color: #28b463;\"><strong>resource allocation</strong></span>, or <span style=\"color: #d35400;\"><strong>performance tracking</strong></span>, this application provides the necessary tools and insights to drive success across all engagements.\n  </p>\n</div>",
+        "user": "Anonymous",
+        "date": "8/11/2025",
+        "upvotes": 0
+      }
+    ]
+  }
+]

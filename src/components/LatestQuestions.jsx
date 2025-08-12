@@ -10,9 +10,9 @@ const LatestQuestions = ({ questions }) => {
     return questions
       .sort((a, b) => {
         // Sort by creation date if available, otherwise by ID (descending for newest first)
-        if (a.createdDate && b.createdDate) {
-          return new Date(b.createdDate) - new Date(a.createdDate);
-        }
+        // if (a.createdDate && b.createdDate) {
+        //   return new Date(b.createdDate) - new Date(a.createdDate);
+        // }
         return b.id - a.id; // Fallback to ID sorting
       })
       .slice(0, 5);
