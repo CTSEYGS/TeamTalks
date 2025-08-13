@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UnansweredQuestionsSidebar from './UnansweredQuestionsSidebar';
 import './AddQuestion.css';
@@ -8,9 +8,30 @@ const AddQuestion = () => {
   const [answer, setAnswer] = useState('');
   const [author, setAuthor] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarExpanded, setSidebarExpanded] = useState(true); // Expanded by default
   const navigate = useNavigate();
 
+  // Show sidebar with 2-second delay
+useEffect(() => {
+  const timer = setTimeout(() => {
+    setShowSidebar(true);
+    setTimeout(() => setSidebarExpanded(true), 300);
+  }, 800);
+  return () => clearTimeout(timer);
+}, []);
+
+// Add this function after your existing useState declarations
+const handleInputFocus = () => {
+  setSidebarExpanded(false);
+};
+
+const handleInputBlur = () => {
+  // Optional: Show sidebar again after a delay when user stops editing
+  setTimeout(() => {
+    setSidebarExpanded(true);
+  }, 1000);
+};
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -65,6 +86,7 @@ const AddQuestion = () => {
                 type="text"
                 id="title"
                 value={title}
+                onFocus={handleInputFocus}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Enter your question here..."
                 required
@@ -76,7 +98,8 @@ const AddQuestion = () => {
               <label htmlFor="answer">Answer</label>
               <textarea
                 id="answer"
-                value={answer}
+                value={answer}                
+                onFocus={handleInputFocus}
                 onChange={(e) => setAnswer(e.target.value)}
                 placeholder="Enter the answer here (leave blank if you don't know the answer yet)..."
                 rows="6"
@@ -89,7 +112,8 @@ const AddQuestion = () => {
               <input
                 type="text"
                 id="author"
-                value={author}
+                value={author}                
+                onFocus={handleInputFocus}
                 onChange={(e) => setAuthor(e.target.value)}
                 placeholder="Enter your name (will be shown as contributor)..."
                 disabled={loading}
@@ -117,10 +141,14 @@ const AddQuestion = () => {
         </div>
       </div>
 
-      <UnansweredQuestionsSidebar
-        isExpanded={sidebarExpanded}
-        onToggle={() => setSidebarExpanded(!sidebarExpanded)}
-      />
+        {/* Unanswered Questions Sidebar */}
+      {showSidebar && (
+        <UnansweredQuestionsSidebar
+          isExpanded={sidebarExpanded}
+          onToggle={() => setSidebarExpanded(!sidebarExpanded)}
+          onQuestionUpdate={() => console.log('Question answered')}
+        />
+      )}
     </div>
   );
 };

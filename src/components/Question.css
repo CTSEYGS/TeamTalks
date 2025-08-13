@@ -252,6 +252,27 @@ background-color: #e8f4fd;
   color: white;
   text-decoration: none;
 }
+.question-tags-inline {
+  color: #007bff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.question-tag-pill {
+   background-color: #e3f2fd;
+   color: #1565c0;
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  margin-left: 1px;
+  margin-right: 2px;
+}
+.question-tag-pill:first-child {
+  margin-left: 6px;
+}
+
+
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
@@ -260,10 +281,15 @@ background-color: #e8f4fd;
     align-items: flex-start;
   }
   
-  .question-info {
-    gap: 10px;
+ .question-info {
+    flex-direction: column;
+    gap: 8px;
   }
   
+  .question-tags-inline {
+    order: 4;
+  }
+
   .question-upvote {
     align-self: flex-end;
   } 

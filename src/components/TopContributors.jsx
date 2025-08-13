@@ -133,10 +133,11 @@ const TopContributors = ({ questions, onRefresh }) => {
               ) : (
                 contributors.map((contributor, index) => (
                   <div key={contributor.name} className="contributor-item">
-                    <div className="contributor-rank">#{index + 1}</div>
+                    
                     <div className="contributor-info">
                       <div className="contributor-name">{contributor.name}</div>
                       <div className="contributor-stats">
+                        <span className="rank">#{index + 1}</span>
                         <span className="upvotes">👍 {contributor.totalUpvotes}</span>
                         <span className="answers">💬 {contributor.answerCount}</span>
                         {contributor.questionsAnswered && (

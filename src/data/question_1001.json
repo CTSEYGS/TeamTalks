@@ -3,7 +3,7 @@
     "id": 1001,
     "title": "What is Canvas?",
     "createdDate": "8/11/2025",
-    "upvotes": 6,
+    "upvotes": 7,
     "author": "Dhananjay K",
     "answers": [
       {
@@ -19,7 +19,20 @@
         "user": "Jose M",
         "date": "08/01/2025",
         "upvotes": 3
+      },
+      {
+        "answerid": 1755050175438,
+        "text": "Canvas is a web application that allows EY auditors to manage and document their audit work in a structured and efficient manner.-\n\nCanvas is a web application that allows EY auditors to manage and document their audit work in a structured and efficient manner.-\n\nCanvas is a web application that allows EY auditors to manage and document their audit work in a structured and efficient manner.",
+        "user": "Anonymous User",
+        "date": "08/12/2025",
+        "upvotes": 1
       }
+    ],
+    "tags": [
+      "initial",
+      "canvas",
+      "KT-series-Level1",
+      "audit"
     ]
   }
 ]

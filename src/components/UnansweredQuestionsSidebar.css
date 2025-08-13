@@ -12,6 +12,15 @@
   z-index: 1000;
   overflow: hidden;
 }
+/* Ensure modals opened from sidebar are properly positioned */
+/* .unanswered-sidebar .answer-modal {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  right: auto !important;
+  margin: 0 !important;
+} */
 
 .unanswered-sidebar.expanded {
   width: 350px;
@@ -326,7 +335,7 @@
 .modal-question {
   padding: 0 24px 20px 24px;
   background: #f8f9fa;
-  margin: 0 24px 24px 24px;
+  margin: 0 24px 24px 24px; 
   border-radius: 2px;
 }
 

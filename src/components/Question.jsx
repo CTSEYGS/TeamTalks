@@ -100,6 +100,16 @@ const Question = () => {
               <span className="question-author">By {questionData.author || 'Anonymous'}</span>
               <span className="question-date">{questionData.createdDateDisplay || questionData.createdDate || 'Unknown date'}</span>
               <span className="question-id">ID: {questionData.id}</span>
+              {/* Add tags here */}
+            {questionData.tags && questionData.tags.length > 0 && (
+              <span className="question-tags-inline">
+                 {questionData.tags.map((tag, index) => (
+                  <span key={index} className="question-tag-pill">
+                    {tag}
+                  </span>
+                ))}
+              </span>
+            )}
             </div>
             
             {/* Question Upvote Section */}
@@ -116,16 +126,7 @@ const Question = () => {
             </div>
           </div>
 
-          {/* Tags Section */}
-          {questionData.tags && questionData.tags.length > 0 && (
-            <div className="question-tags">
-              {questionData.tags.map((tag, index) => (
-                <span key={index} className="question-tag">
-                  #{tag}
-                </span>
-              ))}
-            </div>
-          )}
+         
         </div>
 
         {/* Answers Section */}

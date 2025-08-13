@@ -68,6 +68,7 @@ function UnansweredQuestionsSidebar({
   };
 
   return (
+    <>
     <div className={`unanswered-sidebar ${isExpanded ? 'expanded' : 'collapsed'}`}>
       <button className="sidebar-toggle" onClick={onToggle}>
         <span className="toggle-text">
@@ -115,14 +116,16 @@ function UnansweredQuestionsSidebar({
         </div>
       )}
 
-      {/* Add Answer Modal */}
+     
+    </div>
+     {/* Add Answer Modal */}
       <AddAnswerModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         question={selectedQuestionToAnswer}
         onAnswerSubmitted={handleAnswerSubmitted}
       />
-    </div>
+      </>
   );
 }
 

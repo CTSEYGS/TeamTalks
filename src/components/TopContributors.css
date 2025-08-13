@@ -213,13 +213,11 @@
   border-bottom: none;
 }
 
-.contributor-rank {
-  font-weight: bold;
-  color: #007bff;
-  margin-right: 10px;
-  min-width: 25px;
-  font-size: 14px;
+.rank {
+  color: #0056b3;
+  background-color: #666;
 }
+
 
 .contributor-info {
   flex: 1;

@@ -10,8 +10,7 @@
   backdrop-filter: blur(2px);
 }
 
-/* Modal Container */
-.answer-modal {
+/* Modal Container */.answer-modal {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -19,11 +18,13 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  z-index: 1001;
+  z-index: 1002; /* Higher than sidebar */
   width: 90%;
   max-width: 600px;
   max-height: 80vh;
   overflow-y: auto;
+  margin: 0; /* Reset any inherited margins */
+  right: auto; /* Reset any inherited positioning */
 }
 
 /* Modal Header */

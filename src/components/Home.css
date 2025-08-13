@@ -138,6 +138,36 @@ body::before {
     border-left: none;
 }
 
+/* Add to your existing Home.css */
+.search-result-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+}
+
+.search-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.author-pill {
+  background: #6d9edc;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 500;
+}
+.result-date
+{
+  font-size: 10px;
+  color: #666;
+}
+
 .search-btn:hover {
     background: #336699;
     transform: translateY(-2px);
@@ -326,5 +356,13 @@ body::before {
   .logo-subtitle {
     font-size: 0.8rem;
     margin-top: 6px;
+  }
+}
+
+@media (max-width: 600px) {
+  .search-result-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
   }
 }

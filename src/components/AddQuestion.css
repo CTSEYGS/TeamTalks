@@ -171,6 +171,31 @@
   cursor: not-allowed;
 }
 
+.unanswered-sidebar {
+  transform: translateX(100%);
+  transition: all 0.7s ease;
+  animation: slideInFromRight 0.5s ease-out forwards;
+}
+.unanswered-sidebar.collapsed {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.unanswered-sidebar.expanded {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.unanswered-sidebar.collapsed {
+  transform: translateX(100%);
+  opacity: 0; /* Add this line for fade effect */
+}
+
+@keyframes slideInFromRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
 @media (max-width: 768px) {
   .add-question-container {
     padding: 10px;

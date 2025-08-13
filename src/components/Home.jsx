@@ -70,17 +70,23 @@ const Home = () => {
         {search && !loading && (
           <ul className="search-results">
             {filtered.length === 0 && <li  className="search-result">--No results found.</li>}
-            {filtered.map(q => (
-              <li
-                key={q.id}
-                className="search-result"
-                onClick={() => navigate(`/question/${q.id}`, { state: q })}
-                tabIndex={0}
-                style={{ cursor: 'pointer' }}
-              >
+           {filtered.map(q => (
+            <li
+              key={q.id}
+              className="search-result"
+              onClick={() => navigate(`/question/${q.id}`, { state: q })}
+              tabIndex={0}
+              style={{ cursor: 'pointer' }}
+            >
+              <div className="search-result-title">
                 {q.title}
-              </li>
-            ))}
+                <span className="search-meta">
+                  <span className="author-pill">{q.author || 'Anonymous'}</span>
+                  <span className="result-date">{q.createdDateDisplay || q.createdDate || 'Unknown'}</span>
+                </span>
+              </div>
+            </li>
+          ))}
           </ul>
         )}
       </div>
