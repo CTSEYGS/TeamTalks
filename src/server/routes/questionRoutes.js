@@ -448,7 +448,36 @@ router.patch('/questions/:id', (req, res) => {
           }
           break;
           
-        default:
+         case 'add_tag':
+            if (!value || typeof value !== 'string') {
+              return res.status(400).json({ error: 'Tag value is required and must be a string' });
+            }
+            
+            const newTag = value.trim().toLowerCase();
+            if (!newTag) {
+              return res.status(400).json({ error: 'Tag cannot be empty' });
+            }
+            
+            // Initialize tags array if it doesn't exist
+            if (!Array.isArray(question.tags)) {
+              question.tags = [];
+            }
+            
+            // Check for duplicate tag
+            if (question.tags.includes(newTag)) {
+              return res.status(400).json({ error: 'Tag already exists on this question' });
+            }
+            
+            // Add the new tag
+            question.tags.push(newTag);
+            updateResult = {
+              newTag,
+              allTags: question.tags,
+              tagCount: question.tags.length
+            };
+            break; 
+        
+         default:
           return res.status(400).json({ error: 'Invalid operation' });
       }
       

@@ -1,47 +1,34 @@
-// Enhanced search function that searches through entire question data
-export const searchQuestions = (questions, searchTerm, limit = 5) => {
-  if (!searchTerm || !questions) return [];
+export const searchQuestions = (questions, searchTerm, limit = 10) => {
+  if (!searchTerm.trim()) return [];
   
-  const lowerSearchTerm = searchTerm.toLowerCase();
+  const term = searchTerm.toLowerCase();
   
   return questions
     .filter(q => {
-      // Search in question title
-      if (q.title && q.title.toLowerCase().includes(lowerSearchTerm)) {
-        return true;
+      // Search in title
+      const titleMatch = q.title && q.title.toLowerCase().includes(term);
+      
+      // Search in author
+      const authorMatch = q.author && q.author.toLowerCase().includes(term);
+      
+      // Search in tags
+      const tagMatch = q.tags && Array.isArray(q.tags) && 
+        q.tags.some(tag => tag.toLowerCase().includes(term));
+      
+      // Search in answer text (if exists)
+      let answerMatch = false;
+      if (q.answer && typeof q.answer === 'string') {
+        answerMatch = q.answer.toLowerCase().includes(term);
+      } else if (Array.isArray(q.answers)) {
+        answerMatch = q.answers.some(ans => 
+          ans.text && ans.text.toLowerCase().includes(term)
+        );
       }
       
-      // Search in answers
-      if (q.answers) {
-        // Handle both array and single answer formats
-        const answers = Array.isArray(q.answers) ? q.answers : [q.answers];
-        
-        return answers.some(answer => {
-          // Search in answer text
-          const answerText = typeof answer === 'string' ? answer : answer.text || '';
-          if (answerText.toLowerCase().includes(lowerSearchTerm)) {
-            return true;
-          }
-          
-          // Search in answer user/author
-          if (answer.user && answer.user.toLowerCase().includes(lowerSearchTerm)) {
-            return true;
-          }
-          
-          // Search in answer date (optional)
-          if (answer.date && answer.date.toLowerCase().includes(lowerSearchTerm)) {
-            return true;
-          }
-          
-          return false;
-        });
-      }
-      
-      return false;
+      return titleMatch || authorMatch || tagMatch || answerMatch;
     })
     .slice(0, limit);
 };
-
 // Additional utility functions for search
 export const highlightSearchTerm = (text, searchTerm) => {
   if (!searchTerm) return text;

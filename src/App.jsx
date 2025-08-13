@@ -4,6 +4,8 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Question from './components/Question';
 import AddQuestion from './components/AddQuestion';
+import FilteredQuestions from './components/FilteredQuestions';
+
 
 function App() {
   return (
@@ -14,6 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/question/:id" element={<Question />} />
           <Route path="/add-question" element={<AddQuestion />} />
+          <Route path="/filtered/:filterType/:filterValue" element={<FilteredQuestions />} />
         </Routes>
       </div>
     </Router>

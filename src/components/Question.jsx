@@ -3,15 +3,19 @@ import { useLocation, Link } from 'react-router-dom';
 import './Question.css';
 import Answer from './Answer';
 import AddAnswerModal from './AddAnswerModal';
+import { useNavigate } from 'react-router-dom'; // Add useNavigate here
 
 const Question = () => {
   const location = useLocation();
   const question = location.state;
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const [questionUpvotes, setQuestionUpvotes] = useState(question?.upvotes || 0);
   const [isUpvotingQuestion, setIsUpvotingQuestion] = useState(false);
   const [isAnswerModalOpen, setIsAnswerModalOpen] = useState(false);
   const [questionData, setQuestionData] = useState(question);
+const [isAddingTag, setIsAddingTag] = useState(false);
+const [newTagText, setNewTagText] = useState('');
 
   if (!question) {
     return (
@@ -35,6 +39,60 @@ const Question = () => {
 
   const hasNoAnswers = answers.length === 0 || 
     (answers.length === 1 && answers[0].text === "No answer provided yet. Feel free to contribute an answer!");
+
+const handleAddTag = async () => {
+  if (!newTagText.trim()) return;
+  
+  const newTag = newTagText.trim().toLowerCase();
+  
+  try {
+    const response = await fetch(`/api/questions/${questionData.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        operation: 'add_tag',  // Using the new operation type
+        value: newTag          // Just the tag value
+      })
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      
+      // Update local state with the returned tags
+      setQuestionData({
+        ...questionData,
+        tags: result.allTags
+      });
+      setIsAddingTag(false);
+      setNewTagText('');
+      console.log(`Tag "${result.newTag}" added successfully. Total tags: ${result.tagCount}`);
+    } else {
+      const error = await response.json();
+      console.error('Failed to add tag:', error.error);
+      alert('Failed to add tag: ' + error.error);
+    }
+  } catch (error) {
+    console.error('Error adding tag:', error);
+    alert('Error adding tag. Please try again.');
+  }
+};
+
+// Add this function to handle canceling tag addition
+const handleCancelAddTag = () => {
+  setIsAddingTag(false);
+  setNewTagText('');
+};
+
+// Add this function to handle Enter key
+const handleTagKeyPress = (e) => {
+  if (e.key === 'Enter') {
+    handleAddTag();
+  } else if (e.key === 'Escape') {
+    handleCancelAddTag();
+  }
+};
 
   // Handle question upvote
   const handleQuestionUpvote = async () => {
@@ -97,19 +155,87 @@ const Question = () => {
           {/* Question Metadata */}
           <div className="question-meta">
             <div className="question-info">
-              <span className="question-author">By {questionData.author || 'Anonymous'}</span>
-              <span className="question-date">{questionData.createdDateDisplay || questionData.createdDate || 'Unknown date'}</span>
+                <span 
+                  className="question-author clickable"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/filtered/author/${encodeURIComponent(questionData.author || 'Anonymous')}`);
+                  }}
+                  title={`View all questions by ${questionData.author || 'Anonymous'}`}
+                  style={{ cursor: 'pointer' }}
+                >
+                  By {questionData.author || 'Anonymous'}
+                </span>
+                <span className="question-date">{questionData.createdDateDisplay || questionData.createdDate || 'Unknown date'}</span>
               <span className="question-id">ID: {questionData.id}</span>
               {/* Add tags here */}
-            {questionData.tags && questionData.tags.length > 0 && (
-              <span className="question-tags-inline">
-                 {questionData.tags.map((tag, index) => (
-                  <span key={index} className="question-tag-pill">
-                    {tag}
-                  </span>
-                ))}
-              </span>
-            )}
+        {/* Replace your existing question-tags-inline section with this: */}
+{(questionData.tags && questionData.tags.length > 0) || isAddingTag ? (
+  <div className="question-tags-section">
+    
+    <div className="tags-container">
+      {/* Existing tags */}
+     {questionData.tags && questionData.tags.map((tag, index) => (
+  <span 
+    key={index} 
+    className="question-tag-pill clickable"
+    onClick={() => navigate(`/filtered/tag/${tag}`)}
+    style={{ cursor: 'pointer' }}
+    title={`View all questions tagged with "${tag}"`}
+  >
+    {tag}
+  </span>
+))}
+      
+      {/* Add tag input */}
+      {isAddingTag ? (
+        <div className="add-tag-input-container">
+          <input
+            type="text"
+            value={newTagText}
+            onChange={(e) => setNewTagText(e.target.value)}
+            onKeyPress={handleTagKeyPress}
+            placeholder="Enter tag..."
+            className="add-tag-input"
+            autoFocus
+          />
+          <button 
+            onClick={handleAddTag} 
+            className="add-tag-save-btn"
+            disabled={!newTagText.trim()}
+          >
+            ✓
+          </button>
+          <button 
+            onClick={handleCancelAddTag} 
+            className="add-tag-cancel-btn"
+          >
+            ✕
+          </button>
+        </div>
+      ) : (
+        <button 
+          onClick={() => setIsAddingTag(true)} 
+          className="add-tag-btn"
+          title="Add new tag"
+        >
+          + Add Tag
+        </button>
+      )}
+    </div>
+  </div>
+) : (
+  <div className="question-tags-section">
+    <span className="tags-label">Tags:</span>
+    <button 
+      onClick={() => setIsAddingTag(true)} 
+      className="add-tag-btn"
+      title="Add first tag"
+    >
+      + Add Tag
+    </button>
+  </div>
+)}
             </div>
             
             {/* Question Upvote Section */}
