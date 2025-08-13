@@ -3,7 +3,7 @@
     "id": 1005,
     "title": "What is the main focus of the Hercules project?",
     "createdDate": "8/11/2025",
-    "upvotes": 0,
+    "upvotes": 1,
     "author": "Himadri",
     "answers": [
       {
@@ -11,7 +11,7 @@
         "text": "The main focus of the Hercules project is to provide a robust and efficient API layer that supports the functionality of the Canvas application.",
         "user": "Sravan",
         "date": "08/01/2025",
-        "upvotes": 6
+        "upvotes": 7
       },
       {
         "answerid": 2,
@@ -22,7 +22,8 @@
       }
     ],
     "tags": [
-      "initial"
+      "initial",
+      "hercules"
     ]
   }
 ]

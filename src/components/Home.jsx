@@ -5,6 +5,7 @@ import TopQuestions from './TopQuestions';
 import TopContributors from './TopContributors';
 import LatestQuestions from './LatestQuestions';
 import { searchQuestions } from '../utils/searchUtils';
+import FlashNotification from './FlashNotification';
 
 const Home = () => {
   const [search, setSearch] = useState('');
@@ -96,8 +97,9 @@ const Home = () => {
       </div>
       <div className="footer-tm">
         &copy; 2025 TeamTalks
-      </div>
-    </div>
+      </div>    
+    <FlashNotification questions={questions} />
+  </div>
   );
 };
 
